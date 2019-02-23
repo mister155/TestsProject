@@ -14,7 +14,7 @@ namespace UnitTests
     [TestFixture]
     public class UnitTestSelenium
     {
-        IWebDriver _driver;
+        private IWebDriver _driver;
         
 
         [SetUp]
@@ -77,8 +77,8 @@ namespace UnitTests
             _driver.FindElement(By.Id("address1")).SendKeys("TotallyAddress");
             _driver.FindElement(By.Id("city")).SendKeys("MyCity");
 
-            IWebElement dropList = _driver.FindElement(By.Id("id_state"));
-            SelectElement clickThis = new SelectElement(dropList);
+            var dropList = _driver.FindElement(By.Id("id_state"));
+            var clickThis = new SelectElement(dropList);
             clickThis.SelectByIndex(1);
 
             _driver.FindElement(By.Id("postcode")).SendKeys("00000");
@@ -107,8 +107,8 @@ namespace UnitTests
             _driver.FindElement(By.Id("SubmitLogin")).Click();
 
             _driver.Navigate().GoToUrl("http://automationpractice.com/index.php?controller=contact");
-            IWebElement dropList = _driver.FindElement(By.Id("id_contact"));
-            SelectElement clickThis = new SelectElement(dropList);
+            var dropList = _driver.FindElement(By.Id("id_contact"));
+            var clickThis = new SelectElement(dropList);
             clickThis.SelectByIndex(2);
             _driver.FindElement(By.Id("email")).SendKeys(username);
             _driver.FindElement(By.Id("id_order")).SendKeys("123212");
