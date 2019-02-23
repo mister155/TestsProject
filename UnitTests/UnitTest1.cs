@@ -11,10 +11,29 @@ namespace UnitTests
     [TestFixture]
     public class UnitTest1
     {
+        private RootsResult _correctResult;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _correctResult = new RootsResult();
+            {
+                _correctResult.X1 = -2;
+                _correctResult.X2 = 0;
+                _correctResult.Delta = 36;
+            }
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _correctResult = null;
+        }
+
         [Test]
         public void SumResult()
         {
-            Assert.AreEqual(4,AddCompute.Adding(2, 2));
+            Assert.AreEqual(4, AddCompute.Adding(2, 2));
         }
 
         //        [Test]
@@ -36,27 +55,14 @@ namespace UnitTests
 //            Assert.AreNotEqual(0, Program.Roots(1, 10, 3));
 //        }
 
-        private RootsResult _correctResult;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _correctResult.X1 = -2;
-            _correctResult.X2 = 0;
-            _correctResult.Delta = 36;
-        }
-
         [Test]
-        public void AreRootCalculatedCorrectly()
+        public void AreRootsCalculatedCorrectly()
         {
-            Assert.AreEqual(_correctResult, Program.Roots(3,6,0));
-        }
-        
+            var result = Program.Roots(3, 6, 0);
 
-        [TearDown]
-        public void TearDown()
-        {
-            _correctResult = null;
+            Assert.AreEqual(_correctResult.X1, result.X1);
+            Assert.AreEqual(_correctResult.X2, result.X2);
+            Assert.AreEqual(_correctResult.Delta, result.Delta);
         }
     }
 }
