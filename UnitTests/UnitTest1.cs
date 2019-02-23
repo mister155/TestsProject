@@ -42,9 +42,15 @@ namespace UnitTests
         }
 
         [Test]
+        public void IsResultTooBig()
+        {
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => AddCompute.Adding(_max_y,_max_x));
+        }
+
+        [Test]
         public void IsRootDividedByZero()
         {
-            Assert.ThrowsException<DivideByZeroException>(() => Program.Roots(0,1,2));
+            Assert.ThrowsException<DivideByZeroException>(() => Program.Roots(0,10,2));
         }
 
         [Test]
@@ -52,12 +58,6 @@ namespace UnitTests
         {
             Assert.AreEqual(-8, DeltaCompute.Delta(1, 2, 3));
         }
-
-        //        [Test]
-        //        public void RootExists()
-        //        {
-        //            Assert.AreNotEqual(0, Program.Roots(1, 10, 3));
-        //        }
 
         [Test]
         public void AreRootsCalculatedCorrectly()
@@ -67,6 +67,12 @@ namespace UnitTests
             Assert.AreEqual(_correctResult.X1, result.X1);
             Assert.AreEqual(_correctResult.X2, result.X2);
             Assert.AreEqual(_correctResult.Delta, result.Delta);
+        }
+
+        [Test]
+        public void AreThereTwoRoots()
+        {
+            Assert.AreNotSame(Program.Roots(2,10,7).X1, Program.Roots(2,5,7).X2);
         }
     }
 }

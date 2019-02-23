@@ -11,14 +11,15 @@ namespace TestsProject
     {
         public static RootsResult Roots(double a, double b, double c)
         {
+            if (a == 0)
+            {
+                throw new DivideByZeroException();
+            }
+
             var result = new RootsResult();
             result.Delta = DeltaCompute.Delta(a, b, c);
 
-            if (result.Delta == 0)
-            {
-                result.X1 = -b / (2d * a);
-            }
-            else if (result.Delta < 0)
+             if (result.Delta < 0)
             {
                 result.X1 = null;
                 result.X2 = null;

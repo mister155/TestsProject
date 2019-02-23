@@ -10,6 +10,10 @@ namespace TestsProject
     {
         public static double? Adding(double? a, double? b)
         {
+            if (a + b == Double.PositiveInfinity || a + b == Double.NegativeInfinity)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
             return a + b;
         }
     }
