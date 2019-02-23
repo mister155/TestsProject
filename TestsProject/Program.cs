@@ -19,34 +19,29 @@ namespace TestsProject
             return b * b - (4d * a * c);
         }
 
-        public static double Roots(double a, double b, double c)
+        public static RootsResult Roots(double a, double b, double c)
         {
-            double x1, x2, del;
+            var result = new RootsResult();
 
-            del = Delta(a, b, c);
-            if (del == 0)
+            result.Delta = Delta(a, b, c);
+            if (result.Delta == 0)
             {
-                return  -b / (2d * a);
+                result.X1 = -b / (2d * a);
             }
-            else if (del < 0)
+            else if (result.Delta < 0)
             {
-                Console.WriteLine("No root");
-                return 0;
+                result.X1 = null;
+                result.X2 = null;
             }
             else
             {
-                x1 = (-b - (Math.Sqrt(del))) / (2d * a);
-                x2 = (-b + (Math.Sqrt(del))) / (2d * a);
+                result.X1 = (-b - (Math.Sqrt(result.Delta))) / (2d * a);
+                result.X2 = (-b + (Math.Sqrt(result.Delta))) / (2d * a);
 
-                return x1;
             }
+
+            return result;
         }
-
-        public static double RootsResult()
-        {
-
-        }
-
 
 
         static void Main(string[] args)
