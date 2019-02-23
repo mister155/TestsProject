@@ -9,14 +9,22 @@ namespace TestsProject
 {
     public class Program
     {
-        public static double Adding(double a, double b)
+        public static AddCompute Adding(double a, double b)
         {
-            return a + b;
+            var result = new AddCompute();
+
+            result.Sum = a + b;
+
+            return result;
         }
 
-        public static double Delta(double a, double b, double c)
+        public static DeltaCompute Delta(double a, double b, double c)
         {
-            return b * b - (4d * a * c);
+            var result = new DeltaCompute();
+            result.DelResult = b * b - (4d * a * c);
+            result.DelRoot = Math.Sqrt(result.DelResult);
+
+            return result;
         }
 
         public static RootsResult Roots(double a, double b, double c)
