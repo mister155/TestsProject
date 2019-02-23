@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestsProject
 {
-    public  class RootsResult
+    public class RootsResult
     {
         public double? X1 { get; set; }
         public double? X2 { get; set; }

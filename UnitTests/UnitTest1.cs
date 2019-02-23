@@ -14,32 +14,49 @@ namespace UnitTests
         [Test]
         public void SumResult()
         {
-            Assert.AreEqual(4, Program.Adding(2,2));
+            Assert.AreEqual(4,AddCompute.Adding(2, 2));
         }
 
-//        [Test]
-//        public void FirstDigitIsNull()
-//        {
-//            Assert.That(() => Program.Adding(null, 2), Throws.ArgumentNullException);
-//
-//        }
+        //        [Test]
+        //        public void FirstDigitIsNull()
+        //        {
+        //            Assert.That(() => Program.Adding(null, 2), Throws.ArgumentNullException);
+        //
+        //        }
 
         [Test]
         public void DeltaResult()
         {
-            Assert.AreEqual(-8, Program.Delta(1,2,3));
+            Assert.AreEqual(-8, DeltaCompute.Delta(1, 2, 3));
+        }
+
+//        [Test]
+//        public void RootExists()
+//        {
+//            Assert.AreNotEqual(0, Program.Roots(1, 10, 3));
+//        }
+
+        private RootsResult _correctResult;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _correctResult.X1 = -2;
+            _correctResult.X2 = 0;
+            _correctResult.Delta = 36;
         }
 
         [Test]
-        public void RootExists()
+        public void AreRootCalculatedCorrectly()
         {
-            Assert.AreNotEqual(0, Program.Roots(1,10,3));
+            Assert.AreEqual(_correctResult, Program.Roots(3,6,0));
         }
+        
 
-        [Test]
-        public void FirstRootResult()
+        [TearDown]
+        public void TearDown()
         {
-            Assert.AreEqual(-2,Program.Roots(3,6,0));
+            _correctResult = null;
         }
     }
 }

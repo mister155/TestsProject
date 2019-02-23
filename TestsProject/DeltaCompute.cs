@@ -12,6 +12,5 @@ namespace TestsProject
         {
             return b * b - (4d * a * c);
         }
-
     }
 }
