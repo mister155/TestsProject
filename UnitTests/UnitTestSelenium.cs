@@ -15,11 +15,13 @@ namespace UnitTests
     public class UnitTestSelenium
     {
         IWebDriver _driver;
+        
 
         [SetUp]
         public void StartBrowser()
         {
             _driver = new FirefoxDriver();
+ 
         }
 
         [TearDown]
@@ -31,6 +33,7 @@ namespace UnitTests
         [Test]
         public void LoginTest()
         {
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
             var username = "absolutelynotfake@email.com";
             var password = "password";
 
@@ -45,17 +48,17 @@ namespace UnitTests
 
             _driver.FindElement(By.Id("SubmitLogin")).Click();
 
-            new WebDriverWait(_driver, TimeSpan.FromSeconds(5))
-                .Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlMatches("http://automationpractice.com/index.php?controller=my-account"));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("controller=my-account"));
 
-            Assert.AreEqual("Sign out",_driver.FindElement(By.ClassName("logout")).Text);
+            StringAssert.Contains(_driver.Url, "controller=my-account");
 
         }
 
         [Test]
         public void RegistrationTest()
         {
-            var username = "anotherfake32121@email.com";
+            var guid = Guid.NewGuid();
+            var username = $"{guid.ToString()}@email.com";
             var password = "password";
 
             _driver.Navigate().GoToUrl("http://automationpractice.com/index.php");
@@ -64,8 +67,8 @@ namespace UnitTests
             _driver.FindElement(By.Id("email_create")).SendKeys(username);
             _driver.FindElement(By.Id("SubmitCreate")).Click();
 
-            new WebDriverWait(_driver, TimeSpan.FromSeconds(5))
-                .Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlMatches("http://automationpractice.com/index.php?controller=authentication&back=my-account#account-creation"));
+            var waitForSubmitCreate = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            waitForSubmitCreate.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("my-account#account-creation"));
 
             _driver.FindElement(By.Id("id_gender2")).Click();
             _driver.FindElement(By.Id("customer_firstname")).SendKeys("FirstName");
@@ -83,10 +86,37 @@ namespace UnitTests
 
             _driver.FindElement(By.Id("submitAccount")).Click();
 
-            new WebDriverWait(_driver, TimeSpan.FromSeconds(5))
-                .Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.ClassName("navigation_page")));
+            var waitForSubmit = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            waitForSubmit.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.ClassName("navigation_page")));
 
-            StringAssert.EndsWith("multi-shipping=0",_driver.Url);
+            StringAssert.Contains(_driver.Url, "controller=my-account");
+        }
+
+        [Test]
+        public void CheckIfCartFull()
+        {
+            var username = "absolutelynotfake@email.com";
+            var password = "password";
+
+            _driver.Navigate().GoToUrl("http://automationpractice.com/index.php");
+            _driver.FindElement(By.ClassName("login")).Click();
+            var email = _driver.FindElement(By.Id("email"));
+            email.SendKeys(username);
+            var pass = _driver.FindElement(By.Id("passwd"));
+            pass.SendKeys(password);
+            _driver.FindElement(By.Id("SubmitLogin")).Click();
+
+            _driver.Navigate().GoToUrl("http://automationpractice.com/index.php");
+
+            _driver.FindElement(By.ClassName("sf-with-ul")).Click();
+            _driver.FindElement(By.Name("Faded Short Sleeve T-shirts")).Click();
+            _driver.FindElement(By.Name("Submit")).Click();
+            _driver.FindElement(By.ClassName("cross")).Click();
+            
+            _driver.Navigate().GoToUrl("http://automationpractice.com/index.php?controller=order");
+
+          //  StringAssert.;
+            
         }
     }
 }
