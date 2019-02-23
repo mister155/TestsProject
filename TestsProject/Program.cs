@@ -9,29 +9,11 @@ namespace TestsProject
 {
     public class Program
     {
-        public static AddCompute Adding(double a, double b)
-        {
-            var result = new AddCompute();
-
-            result.Sum = a + b;
-
-            return result;
-        }
-
-        public static DeltaCompute Delta(double a, double b, double c)
-        {
-            var result = new DeltaCompute();
-            result.DelResult = b * b - (4d * a * c);
-            result.DelRoot = Math.Sqrt(result.DelResult);
-
-            return result;
-        }
-
         public static RootsResult Roots(double a, double b, double c)
         {
             var result = new RootsResult();
+            result.Delta = DeltaCompute.Delta(a, b, c);
 
-            result.Delta = Delta(a, b, c);
             if (result.Delta == 0)
             {
                 result.X1 = -b / (2d * a);
@@ -45,7 +27,6 @@ namespace TestsProject
             {
                 result.X1 = (-b - (Math.Sqrt(result.Delta))) / (2d * a);
                 result.X2 = (-b + (Math.Sqrt(result.Delta))) / (2d * a);
-
             }
 
             return result;
@@ -54,7 +35,7 @@ namespace TestsProject
 
         static void Main(string[] args)
         {
-            Console.WriteLine(Adding(2, 2));
+            Console.WriteLine(AddCompute.Adding(2, 2));
             Console.ReadLine();
         }
     }

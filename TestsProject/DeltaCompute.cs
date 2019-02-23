@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace TestsProject
 {
-    public class DeltaResult
+    public static class DeltaCompute
     {
-        public double DelResult { get; set; }
-        public double DelRoot { get; set; }
+        public static double Delta(double a, double b, double c)
+        {
+            return b * b - (4d * a * c);
+        }
+
     }
 }

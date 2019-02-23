@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace TestsProject
 {
-    public class AddResult
+    public static class AddCompute
     {
-        public double? Sum { get; set; }
+        public static double Adding(double a, double b)
+        {
+            return a + b;
+        }
     }
 }
+
+
