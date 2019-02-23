@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace TestsProject
 
         public static double Delta(double a, double b, double c)
         {
-            return b * b - (4 * a * c);
+            return b * b - (4d * a * c);
         }
 
         public static double Roots(double a, double b, double c)
@@ -25,19 +26,24 @@ namespace TestsProject
             del = Delta(a, b, c);
             if (del == 0)
             {
-                return  -b / (2 * a);
+                return  -b / (2d * a);
             }
             else if (del < 0)
             {
                 Console.WriteLine("No root");
+                return 0;
             }
             else
             {
-                x1 = -b - (Math.Sqrt(del)) / 2 * a;
-                x2 = -b + (Math.Sqrt(del)) / 2 * a;
-            }
+                x1 = (-b - (Math.Sqrt(del))) / (2d * a);
+                x2 = (-b + (Math.Sqrt(del))) / (2d * a);
 
-            return 0;
+                return x1;
+            }
+        }
+
+        public static double RootsResult()
+        {
 
         }
 

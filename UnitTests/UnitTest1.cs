@@ -30,11 +30,11 @@ namespace UnitTests
             Assert.AreEqual(-8, Program.Delta(1,2,3));
         }
 
-//        [Test]
-//        public void RootExists()
-//        {
-//            Assert.AreNotEqual("No root", Program.Roots(1,2,3));
-//        }
+        [Test]
+        public void RootExists()
+        {
+            Assert.AreNotEqual(0, Program.Roots(1,10,3));
+        }
 
         [Test]
         public void FirstRootResult()
