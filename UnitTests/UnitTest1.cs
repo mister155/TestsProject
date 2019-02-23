@@ -12,6 +12,8 @@ namespace UnitTests
     public class UnitTest1
     {
         private RootsResult _correctResult;
+        private double _max_x, _max_y;
+
 
         [SetUp]
         public void SetUp()
@@ -21,6 +23,8 @@ namespace UnitTests
                 _correctResult.X1 = -2;
                 _correctResult.X2 = 0;
                 _correctResult.Delta = 36;
+                _max_y = Double.MaxValue;
+                _max_x = Double.MaxValue;
             }
         }
 
@@ -28,6 +32,7 @@ namespace UnitTests
         public void TearDown()
         {
             _correctResult = null;
+            _max_y = _max_x = 0;
         }
 
         [Test]
@@ -36,12 +41,11 @@ namespace UnitTests
             Assert.AreEqual(4, AddCompute.Adding(2, 2));
         }
 
-        //        [Test]
-        //        public void FirstDigitIsNull()
-        //        {
-        //            Assert.That(() => Program.Adding(null, 2), Throws.ArgumentNullException);
-        //
-        //        }
+        [Test]
+        public void IsResultTooBig()
+        {
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => AddCompute.Adding(_max_y, _max_x));
+        }
 
         [Test]
         public void DeltaResult()

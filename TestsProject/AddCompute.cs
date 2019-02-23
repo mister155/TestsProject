@@ -8,7 +8,7 @@ namespace TestsProject
 {
     public static class AddCompute
     {
-        public static double Adding(double a, double b)
+        public static double? Adding(double? a, double? b)
         {
             return a + b;
         }
