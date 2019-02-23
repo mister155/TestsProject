@@ -93,7 +93,7 @@ namespace UnitTests
         }
 
         [Test]
-        public void CheckIfCartFull()
+        public void CustomerService()
         {
             var username = "absolutelynotfake@email.com";
             var password = "password";
@@ -106,17 +106,19 @@ namespace UnitTests
             pass.SendKeys(password);
             _driver.FindElement(By.Id("SubmitLogin")).Click();
 
-            _driver.Navigate().GoToUrl("http://automationpractice.com/index.php");
+            _driver.Navigate().GoToUrl("http://automationpractice.com/index.php?controller=contact");
+            IWebElement dropList = _driver.FindElement(By.Id("id_contact"));
+            SelectElement clickThis = new SelectElement(dropList);
+            clickThis.SelectByIndex(2);
+            _driver.FindElement(By.Id("email")).SendKeys(username);
+            _driver.FindElement(By.Id("id_order")).SendKeys("123212");
+            _driver.FindElement(By.Id("message")).SendKeys("Message");
+            _driver.FindElement(By.Id("submitMessage")).Click();
 
-            _driver.FindElement(By.ClassName("sf-with-ul")).Click();
-            _driver.FindElement(By.Name("Faded Short Sleeve T-shirts")).Click();
-            _driver.FindElement(By.Name("Submit")).Click();
-            _driver.FindElement(By.ClassName("cross")).Click();
-            
-            _driver.Navigate().GoToUrl("http://automationpractice.com/index.php?controller=order");
+            var waitForSubmitCreate = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            waitForSubmitCreate.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains("controller=contact"));
 
-          //  StringAssert.;
-            
+            StringAssert.Contains("successfully sent", _driver.PageSource);
         }
     }
 }
