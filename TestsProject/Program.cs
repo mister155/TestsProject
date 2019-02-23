@@ -6,28 +6,30 @@ using System.Threading.Tasks;
 
 namespace TestsProject
 {
-
-
-    class Program
+    public class Program
     {
-        private static double Adding(double a, double b)
+        public static double Adding(double a, double b)
         {
             return a + b;
         }
 
-        private static double Delta(double a, double b, double c)
+        public static double Delta(double a, double b, double c)
         {
-            return b * b * (4 * a * c);
+            return b * b - (4 * a * c);
         }
 
-        private static double Roots(double a, double b, double c)
+        public static double Roots(double a, double b, double c)
         {
             double x1, x2, del;
 
             del = Delta(a, b, c);
             if (del == 0)
             {
-                x1 = -b / (2 * a);
+                return  -b / (2 * a);
+            }
+            else if (del < 0)
+            {
+                Console.WriteLine("No root");
             }
             else
             {
